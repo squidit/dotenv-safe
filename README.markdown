@@ -1,6 +1,6 @@
 # sq-dotenv
 
-Identical to [`dotenv`](https://github.com/motdotla/dotenv) and [`dotenv-safe](https://github.com/motdotla/dotenv-safe), but ensures that all necessary environment variables are defined after reading from `.env` and `./kub/kub_deployment.yml.template`.
+Identical to [`dotenv`](https://github.com/motdotla/dotenv) and [`dotenv-safe`](https://github.com/motdotla/dotenv-safe), but ensures that all necessary environment variables are defined after reading from `.env` and `./kub/kub_deployment.yml.template`.
 These needed variables are read from `.env.example`, which should be commited along with your project.
 
 # Installation
@@ -111,8 +111,3 @@ Defaults to `false`.
 
 Path to example environment file.
 Defaults to `.env.example`.
-
-# Motivation
-
-I regularly use apps that depend on `.env` files but don't validate if all the necessary variables have been defined correctly.
-Instead of having to document and validate this manually, I prefer to commit a self-documenting `.env` file (no values, key names only) which can be used as a reference.
