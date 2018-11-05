@@ -36,7 +36,7 @@ module.exports = {
       throw new MissingEnvVarsError(allowEmptyValues, options.path || '.env', example, missingDotenv, dotenvResult.error)
     }
 
-    if (missingKub.length > 0) {
+    if (missingKub.length > 0 && options.hasKub) {
       throw new MissingEnvVarsError(allowEmptyValues, kub, example, missingKub, dotenvResult.error)
     }
 

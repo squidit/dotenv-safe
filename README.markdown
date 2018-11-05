@@ -102,6 +102,10 @@ require('sq-dotenv').config({
 });
 ```
 
+## `hasKub`
+
+Set `true` if the project needs to validate `./kub/kub_deployment.yml.template` file variables.
+
 ## `allowEmptyValues`
 
 If a variable is defined in the example file and has an empty value in the environment, enabling this option will not throw an error after loading.
