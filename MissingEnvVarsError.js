@@ -3,7 +3,7 @@
 const util = require('util')
 
 function MissingEnvVarsError (allowEmptyValues, dotenvFilename, exampleFilename, missingVars, error) {
-  const errorMessage = `The following variables were defined in ${exampleFilename} but are not present in the environment:\n  ${missingVars.join(', ')}
+  const errorMessage = `The following variables were defined in ${exampleFilename} but are not present in the environment/kub.deployment:\n  ${missingVars.join(', ')}
 Make sure to add them to ${dotenvFilename} or directly to the environment.`
   const allowEmptyValuesMessage = !allowEmptyValues ? `If you expect any of these variables to be empty, you can use the allowEmptyValues option:
 require('dotenv-safe').config({

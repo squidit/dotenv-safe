@@ -23,21 +23,23 @@ function compact (obj) {
 module.exports = {
   config: function (options = {}) {
     const dotenvResult = dotenv.load(options)
-    const kub = options.kub || './kub/kub_deployment.yml.template'
-    const envKub = get(yaml.safeLoad(fs.readFileSync(kub, 'utf8')), 'spec.template.spec.containers[0].env')
     const example = options.example || options.sample || '.env.example'
     const allowEmptyValues = options.allowEmptyValues || false
     const processEnv = allowEmptyValues ? process.env : compact(process.env)
     const exampleVars = dotenv.parse(fs.readFileSync(example))
     const missingDotenv = difference(Object.entries(exampleVars), Object.keys(processEnv))
-    const missingKub = difference(Object.entries(exampleVars), envKub.map(e => e.name))
 
     if (missingDotenv.length > 0) {
       throw new MissingEnvVarsError(allowEmptyValues, options.path || '.env', example, missingDotenv, dotenvResult.error)
     }
 
-    if (missingKub.length > 0 && options.hasKub) {
-      throw new MissingEnvVarsError(allowEmptyValues, kub, example, missingKub, dotenvResult.error)
+    if (options.hasKub) {
+      const kub = options.kub || './kub/kub_deployment.yml.template'
+      const envKub = get(yaml.safeLoad(fs.readFileSync(kub, 'utf8')), 'spec.template.spec.containers[0].env')
+      const missingKub = difference(Object.entries(exampleVars), envKub.map(e => e.name))
+      if (missingKub.length > 0) {
+        throw new MissingEnvVarsError(allowEmptyValues, kub, example, missingKub, dotenvResult.error)
+      }
     }
 
     // Key/value pairs defined in example file and resolved from environment
